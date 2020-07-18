@@ -11,15 +11,15 @@ class OneDirectionalLinkedList {
   OneDirectionalLinkedList() {}
   ~OneDirectionalLinkedList() {}
 
-  void insert_back(T value);
+  void insert_back(const T& value);
 
  private:
-  OneDirectionalNode<T>* head_;
+  OneDirectionalNode<T>* head_ = NULL;
 };
 
 template <typename T>
-void OneDirectionalLinkedList<T>::insert_back(T value) {
-  OneDirectionalNode<T>* new_node = new OneDirectionalNode<T>(value);
+void OneDirectionalLinkedList<T>::insert_back(const T& value) {
+  OneDirectionalNode<T>* new_node = new OneDirectionalNode<T> {value, NULL};
   if (this->head_ == NULL) {
     this->head_ = new_node;
     return;

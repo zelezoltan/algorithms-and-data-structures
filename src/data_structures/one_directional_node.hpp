@@ -5,9 +5,6 @@ namespace data_structures {
 
 template <typename T>
 struct OneDirectionalNode{
-  OneDirectionalNode(T value) {
-      this->value = value;
-  }
   T value;
   OneDirectionalNode* next;
 };
