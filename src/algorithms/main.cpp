@@ -5,8 +5,8 @@
 
 template <typename T>
 void PrintVector(const std::vector<T>& vec) {
-  for (auto elem : vec) {
-    std::cout << elem << " "; // T has operator<< defined
+  for (const auto& elem : vec) {
+    std::cout << elem << ' '; // T has operator<< defined
   }
   std::cout << '\n';
 }

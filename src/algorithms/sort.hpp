@@ -115,8 +115,8 @@ template <typename T>
 std::vector<T> MergeSortInEfficient(const std::vector<T>& vec) {
   if (vec.size() <= 1) return vec;
   Vectorpair<T> halves = sort_helpers::split(vec);
-  std::vector<int> a = MergeSortInEfficient(halves.first);
-  std::vector<int> b = MergeSortInEfficient(halves.second);
+  std::vector<T> a = MergeSortInEfficient(halves.first);
+  std::vector<T> b = MergeSortInEfficient(halves.second);
   return MergeInEfficient(a, b);
 }
 
