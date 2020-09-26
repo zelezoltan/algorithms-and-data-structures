@@ -1,3 +1,3 @@
 # Algorithms and data structures
 
-A library containig my inmplementations of algorithms and data structures in C++.
+A library containig my implementations of algorithms and data structures in C++.
