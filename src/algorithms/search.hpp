@@ -10,9 +10,11 @@ enum class BinarySearchImplementation {
   kIterative
 };
 
-const BinarySearchImplementation kBinSearchImplementation = BinarySearchImplementation::kIterative;
+const BinarySearchImplementation kBinSearchImplementation
+  = BinarySearchImplementation::kIterative;
 
-// Searches an array for a given value x. (Assumes T has implemented the comparison operator !=)
+// Searches an array for a given value x. 
+// (Assumes T has implemented the comparison operator !=)
 // Returns the index of the value if found, otherwise vec.size().
 template <typename T>
 int LinearSearch(const std::vector<T>& vec, const T& x) {
@@ -24,7 +26,8 @@ int LinearSearch(const std::vector<T>& vec, const T& x) {
 // Recursive implementation of the binary search.
 // Returns the index of the found element or -1.
 template <typename T>
-int BinarySearchRecursive(const std::vector<T>& vec, int low, int high, const T& x) {
+int BinarySearchRecursive(const std::vector<T>& vec,
+                          int low, int high, const T& x) {
   if (low > high) { // interval [low..high] is empty
     return -1; // Not found
   } else {
@@ -58,7 +61,9 @@ int BinarySearchIterative(const std::vector<T>& vec, const T& x) {
   return -1; // Not found
 }
 
-// Searches a sorted array for a given value x. (Assumes that the array is sorted and comparison operators == and > are implemented by type T)
+// Searches a sorted array for a given value x.
+// (Assumes that the array is sorted and 
+// comparison operators == and > are implemented by type T)
 // Returns the index of the found element or -1.
 template <typename T>
 int BinarySearch(const std::vector<T>& vec, const T& x) {
