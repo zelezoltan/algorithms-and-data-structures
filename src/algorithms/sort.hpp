@@ -125,10 +125,12 @@ template <typename T>
 void Merge(std::vector<T>& vec, int low, int middle, int high) {
   // Number of elements in the first half
   int d = middle - low;
+  // Copy the elements in the first half to temp
   std::vector<T> temp(vec.begin() + low, vec.begin() + low + d);
   int i = middle;
   int k = low;
   int j = 0;
+  // Merging the two half
   while (i < high && j < d) {
     if (vec[i] > temp[j]) {
       vec[k] = temp[j];
@@ -139,6 +141,13 @@ void Merge(std::vector<T>& vec, int low, int middle, int high) {
     }
     ++k;
   }
+  // After the loop either i = high:
+  //   - the remaining elements in temp needed
+  //     to be copied to the end of the array 
+  // or j = d:
+  //   - the elements in temp are copied into vec already
+  //     and the remaining elements are already in the 
+  //     right place 
   while (j < d) {
     vec[k] = temp[j];
     ++j;
@@ -166,6 +175,7 @@ void MergeSort(std::vector<T>& vec) {
       break;
     case MergeSortImplementation::kEfficient:
       MergeSort(vec, 0, vec.size());
+      break;
   }
 }
 
