@@ -13,18 +13,19 @@ class FixedStack : public IStack<T> {
   explicit FixedStack(int size);
   ~FixedStack() override;
   // Push elem on the top of the stack
-  void push(T elem) override;
+  virtual void push(T elem) override;
   // Remove and return the top element of the stack
   T& pop() override;
   // Return the top element of the stack
   T& top() override;
-  bool IsFull() const override;
+  virtual bool IsFull() const override;
   bool IsEmpty() const override;
   void SetEmpty() override;
- private:
+ protected:
+  FixedStack() {};
   int n_ = 0;
-  int size_;
-  T* arr_;
+  int size_ = 0;
+  T* arr_ = nullptr;
 };
 
 template <typename T>

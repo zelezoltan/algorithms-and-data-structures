@@ -6,9 +6,6 @@
 namespace data_structures {
 
 template <typename T>
-class DynamicStack;
-
-template <typename T>
 using Stack = DynamicStack<T>;
 
 } // namespace data_structures
