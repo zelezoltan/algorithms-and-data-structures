@@ -261,7 +261,7 @@ int Partition(std::vector<T>& vec, int low, int high) {
     // Move the first element >= pivot to the last place
     vec[high] = vec[i];
     // Move the pivot to it's place
-    // Now vec[low..pivot) <= pivot and vec[(pivot + 1)..high] >= pivot
+    // Now vec[low..i) <= pivot and vec[(i + 1)..high] >= pivot
     vec[i] = pivot;
   } else { // All elements are smaller than or equal to the pivot
     vec[high] = pivot;
