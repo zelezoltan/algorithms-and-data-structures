@@ -51,13 +51,15 @@ enum class QuickSortImplementation {
   kNormal,
   // If the size of the array is smaller than some constant c,
   // do InsertionSort instead 
-  kMixed
+  kMixed,
+  // Mixed implementation using a while loop and one recursive call 
+  kTailCallOptimized
 };
 
 const MergeSortImplementation kMergeSortImplementation 
   = MergeSortImplementation::kEfficient;
 const QuickSortImplementation kQuickSortImplementation
-  = QuickSortImplementation::kMixed;
+  = QuickSortImplementation::kTailCallOptimized;
 
 // Minimum number of elements needed to perform Quicksort
 // It is known that for small arrays Insertionsort is more effiecient
@@ -289,6 +291,16 @@ void QuickSortMixed(std::vector<T>& vec, int low, int high) {
 }
 
 template <typename T>
+void QuickSortTailCallOptimized(std::vector<T>& vec, int low, int high) {
+  while (low + kQuicksortMinElemCount < high) {
+    int pivot_index = Partition(vec, low, high);
+    QuickSortTailCallOptimized(vec, low, pivot_index - 1);
+    low = pivot_index + 1;
+  }
+  InsertionSubSort(vec, low, high);
+}
+
+template <typename T>
 void QuickSort(std::vector<T>& vec) {
   // Seed the random number generator
   sort_helpers::SeedRandomGenerator();
@@ -298,6 +310,9 @@ void QuickSort(std::vector<T>& vec) {
       break;
     case QuickSortImplementation::kMixed:
       QuickSortMixed(vec, 0, vec.size() - 1);
+      break;
+    case QuickSortImplementation::kTailCallOptimized:
+      QuickSortTailCallOptimized(vec, 0, vec.size() - 1);
       break;
   }
 }
