@@ -62,7 +62,7 @@ const QuickSortImplementation kQuickSortImplementation
   = QuickSortImplementation::kTailCallOptimized;
 
 // Minimum number of elements needed to perform Quicksort
-// It is known that for small arrays Insertionsort is more effiecient
+// It is known that for small arrays Insertionsort is more efficient
 // Usually between 20 and 40
 const int kQuicksortMinElemCount = 30;
 
