@@ -2,6 +2,8 @@
 #define ALGORITHMS_SORT_HPP_
 
 #include <vector>
+#include <ctime>
+#include <cstdlib>
 
 namespace algorithms {
 
@@ -24,6 +26,15 @@ Vectorpair<T> split(const std::vector<T>& vec) {
                        std::vector<T>(vec.begin() + half, vec.end()));
 }
 
+void SeedRandomGenerator() {
+  std::srand(std::time(nullptr));
+}
+
+// Generates a random number in range [low..high]
+int GetRandomNumber(int low, int high) {
+  return low + (std::rand() % (high-low + 1));
+}
+
 } // namespace sort_helpers
 
 enum class MergeSortImplementation {
@@ -35,8 +46,23 @@ enum class MergeSortImplementation {
   kEfficient 
 };
 
+enum class QuickSortImplementation {
+  // Do QuickSort every iteration
+  kNormal,
+  // If the size of the array is smaller than some constant c,
+  // do InsertionSort instead 
+  kMixed
+};
+
 const MergeSortImplementation kMergeSortImplementation 
   = MergeSortImplementation::kEfficient;
+const QuickSortImplementation kQuickSortImplementation
+  = QuickSortImplementation::kMixed;
+
+// Minimum number of elements needed to perform Quicksort
+// It is known that for small arrays Insertionsort is more effiecient
+// Usually between 20 and 40
+const int kQuicksortMinElemCount = 30;
 
 // Sorts the elements in place. 
 // (Assumes T implements operators: =(assignment), >)
@@ -54,6 +80,31 @@ void InsertionSort(std::vector<T>& vec) {
       int j = i - 2;
       // While the previous element is bigger than the new
       while (j >= 0 && vec[j] > value) { 
+        // move the hole backwards by moving the bigger element forward
+        sort_helpers::swap(vec[j], vec[j + 1]); 
+        --j;
+      }
+      // Put the new element in the hole
+      vec[j + 1] = value; 
+    }
+  }
+}
+
+// Sorts the subarray vec[low..high]
+template <typename T>
+void InsertionSubSort(std::vector<T>& vec, int low, int high) {
+  for(int i = low + 1; i <= high; ++i) { 
+    // vec[low..i-1] is sorted
+    // If new element is smaller then the biggest in the sorted part
+    if (vec[i - 1] > vec[i]) { 
+      // store the new element
+      T value = vec[i]; 
+      // move the biggest element to the place of the new 
+      // (This creates a hole in the place of the previously biggest element)
+      vec[i] = vec[i - 1]; 
+      int j = i - 2;
+      // While the previous element is bigger than the new
+      while (j >= low && vec[j] > value) { 
         // move the hole backwards by moving the bigger element forward
         sort_helpers::swap(vec[j], vec[j + 1]); 
         --j;
@@ -175,6 +226,78 @@ void MergeSort(std::vector<T>& vec) {
       break;
     case MergeSortImplementation::kEfficient:
       MergeSort(vec, 0, vec.size());
+      break;
+  }
+}
+
+template <typename T>
+int Partition(std::vector<T>& vec, int low, int high) {
+  // Select the pivot randomly
+  int i = sort_helpers::GetRandomNumber(low, high);
+  int pivot = vec[i];
+  // Move the last element in the place of the pivot
+  vec[i] = vec[high];
+  // Find the first element in the array > pivot
+  i = low;
+  while (i < high && vec[i] <= pivot) {
+    ++i;
+  }
+  // If we found an element that is larger
+  if (i < high) {
+    // vec[low..i) <= pivot
+    // vec[i..j) >= pivot
+    // vec[j..high) unknown
+    for (int j = i + 1; j < high; ++j) {
+      // If we find an element thats < pivot in vec[j..high)
+      // swap the element with the first element >= pivot (vec[i])
+      // move the index to the new first element >= pivot (i + 1)
+      if (vec[j] < pivot) {
+        sort_helpers::swap(vec[i], vec[j]);
+        ++i;
+      }
+    }
+    // Move the first element >= pivot to the last place
+    vec[high] = vec[i];
+    // Move the pivot to it's place
+    // Now vec[low..pivot) <= pivot and vec[(pivot + 1)..high] >= pivot
+    vec[i] = pivot;
+  } else { // All elements are smaller than or equal to the pivot
+    vec[high] = pivot;
+  }
+  // Return with the index of the pivot
+  return i;
+}
+
+template <typename T>
+void QuickSort(std::vector<T>& vec, int low, int high) {
+  if (low < high) {
+    int pivot_index = Partition(vec, low, high);
+    QuickSort(vec, low, pivot_index - 1);
+    QuickSort(vec, pivot_index + 1, high);
+  }
+}
+
+template <typename T>
+void QuickSortMixed(std::vector<T>& vec, int low, int high) {
+  if (low + kQuicksortMinElemCount < high) {
+    int pivot_index = Partition(vec, low, high);
+    QuickSort(vec, low, pivot_index - 1);
+    QuickSort(vec, pivot_index + 1, high);
+  } else {
+    InsertionSubSort(vec, low, high);
+  }
+}
+
+template <typename T>
+void QuickSort(std::vector<T>& vec) {
+  // Seed the random number generator
+  sort_helpers::SeedRandomGenerator();
+  switch (kQuickSortImplementation) {
+    case QuickSortImplementation::kNormal:
+      QuickSort(vec, 0, vec.size() - 1);
+      break;
+    case QuickSortImplementation::kMixed:
+      QuickSortMixed(vec, 0, vec.size() - 1);
       break;
   }
 }
