@@ -1,5 +1,5 @@
-#ifndef DATA_STRUCTURES_QUEUE_DYNAMIC_QUEUE
-#define DATA_STRUCTURES_QUEUE_DYNAMIC_QUEUE
+#ifndef DATA_STRUCTURES_QUEUE_DYNAMIC_QUEUE_HPP_
+#define DATA_STRUCTURES_QUEUE_DYNAMIC_QUEUE_HPP_
 
 #include "fixed_queue.hpp"
 
@@ -33,4 +33,4 @@ void DynamicQueue<T>::add(T elem) {
 
 } // namespace data_structures
 
-#endif // DATA_STRUCTURES_QUEUE_DYNAMIC_QUEUE
+#endif // DATA_STRUCTURES_QUEUE_DYNAMIC_QUEUE_HPP_
