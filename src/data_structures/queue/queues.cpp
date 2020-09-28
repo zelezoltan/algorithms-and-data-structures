@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "fixed_queue.hpp"
+#include "dynamic_queue.hpp"
 
 int main() {
   std::vector<int> values = {1, 3, 5, 2, 22, 8, 2, 6, 4, 15, 13, 66};
@@ -37,6 +38,16 @@ int main() {
   std::cout << queue1.length() << " " << queue1.IsEmpty() << " " << queue1.IsFull() << '\n';
   while (!queue1.IsEmpty()) {
     std::cout << queue1.rem() << " ";
+  }
+  std::cout << '\n';
+
+  data_structures::DynamicQueue<int> queue;
+  queue.add(2);
+  for (int value : values) {
+    queue.add(value);
+  }
+  while (!queue.IsEmpty()) {
+    std::cout << queue.rem() << " ";
   }
   std::cout << '\n';
   return 0;

@@ -13,14 +13,14 @@ class FixedQueue : public IQueue<T> {
  public:
   explicit FixedQueue(int size);
   ~FixedQueue() override;
-  void add(T elem) override;
+  virtual void add(T elem) override;
   // Removes and returns the first element in the queue
   T& rem() override;
   // Returns the first element of the queue
   T& first() override;
   // Returns the length of the queue
   int length() const override;
-  bool IsFull() const override;
+  virtual bool IsFull() const override;
   bool IsEmpty() const override;
   void SetEmpty() override;
  protected:
