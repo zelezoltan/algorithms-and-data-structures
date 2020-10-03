@@ -7,8 +7,8 @@ namespace data_structures {
 template<typename T>
 class IQueue {
  public:
-  virtual void add(T elem) = 0;
-  virtual T& rem() = 0;
+  virtual void add(const T& elem) = 0;
+  virtual T rem() = 0;
   virtual T& first() = 0;
   virtual int length() const = 0;
   virtual bool IsFull() const = 0;

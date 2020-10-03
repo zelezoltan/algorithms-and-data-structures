@@ -13,9 +13,9 @@ class FixedQueue : public IQueue<T> {
  public:
   explicit FixedQueue(int size);
   ~FixedQueue() override;
-  virtual void add(T elem) override;
+  virtual void add(const T& elem) override;
   // Removes and returns the first element in the queue
-  T& rem() override;
+  T rem() override;
   // Returns the first element of the queue
   T& first() override;
   // Returns the length of the queue
@@ -69,7 +69,7 @@ void FixedQueue<T>::SetEmpty() {
 }
 
 template <typename T>
-void FixedQueue<T>::add(T elem) {
+void FixedQueue<T>::add(const T& elem) {
   if (IsFull()) {
     throw std::length_error("The queue is full!");
   }
@@ -86,7 +86,7 @@ T& FixedQueue<T>::first() {
 }
 
 template <typename T>
-T& FixedQueue<T>::rem() {
+T FixedQueue<T>::rem() {
   if (IsEmpty()) {
     throw std::length_error("The queue is empty!");
   }

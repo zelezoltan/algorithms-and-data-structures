@@ -10,12 +10,12 @@ class DynamicQueue : public FixedQueue<T> {
  public:
   DynamicQueue(int size) : FixedQueue<T>::FixedQueue(size) {}
   DynamicQueue() {};
-  void add(T elem) override;
+  void add(const T& elem) override;
   bool IsFull() const override { return false; }
 };
 
 template <typename T>
-void DynamicQueue<T>::add(T elem) {
+void DynamicQueue<T>::add(const T& elem) {
   if (this->length_ == this->size_) {
     T* new_arr = this->size_ == 0 ? new T[1] : new T[2*this->size_];
     for (int i = 0; i < this->length_; ++i) {

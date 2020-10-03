@@ -3,6 +3,7 @@
 
 #include "fixed_queue.hpp"
 #include "dynamic_queue.hpp"
+#include "linked_queue.hpp"
 
 int main() {
   std::vector<int> values = {1, 3, 5, 2, 22, 8, 2, 6, 4, 15, 13, 66};
@@ -48,6 +49,16 @@ int main() {
   }
   while (!queue.IsEmpty()) {
     std::cout << queue.rem() << " ";
+  }
+  std::cout << '\n';
+
+  data_structures::LinkedQueue<int> queue2;
+  queue2.add(2);
+  for (int value : values) {
+    queue2.add(value);
+  }
+  while (!queue2.IsEmpty()) {
+    std::cout << queue2.rem() << " ";
   }
   std::cout << '\n';
   return 0;
