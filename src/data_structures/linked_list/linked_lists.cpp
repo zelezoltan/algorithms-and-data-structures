@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "singly_linked_list.hpp"
+#include "doubly_linked_list.hpp"
 
 int main() {
 
@@ -19,6 +20,22 @@ int main() {
   }
   while (!list.IsEmpty()) {
     std::cout << list.pop_front() << " ";
+  }
+  std::cout << '\n';
+
+  data_structures::DoublyLinkedList<int> list2;
+  for (int num : values) {
+    list2.push_back(num);
+  }
+  while (!list2.IsEmpty()) {
+    std::cout << list2.pop_front() << " ";
+  }
+  std::cout << '\n';
+  for (int num : values) {
+    list2.push_front(num);
+  }
+  while (!list2.IsEmpty()) {
+    std::cout << list2.pop_back() << " ";
   }
   std::cout << '\n';
 
