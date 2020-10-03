@@ -5,6 +5,7 @@ namespace data_structures {
 
 template <typename T>
 struct SinglyLinkedNode {
+  SinglyLinkedNode(T data) : value(data) {}
   T value;
   SinglyLinkedNode* next = nullptr;
 };

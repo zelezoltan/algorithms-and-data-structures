@@ -4,6 +4,7 @@
 #include "fixed_stack.hpp"
 #include "dynamic_stack.hpp"
 #include "stack.h"
+#include "linked_stack.hpp"
 
 int main() {
 
@@ -26,6 +27,16 @@ int main() {
   }
   while (!stack.IsEmpty()) {
     std::cout << stack.pop() << " ";
+  }
+  std::cout << '\n';
+
+  data_structures::LinkedStack<int> linked_stack;
+  std::cout << linked_stack.IsEmpty() << " " << linked_stack.IsFull() << '\n'; 
+  for (int i = 0; i < values.size(); ++i) {
+    linked_stack.push(values[i]);
+  }
+  while (!linked_stack.IsEmpty()) {
+    std::cout << linked_stack.pop() << " ";
   }
   std::cout << '\n';
 

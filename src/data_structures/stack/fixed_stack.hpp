@@ -15,7 +15,7 @@ class FixedStack : public IStack<T> {
   // Push elem on the top of the stack
   virtual void push(T elem) override;
   // Remove and return the top element of the stack
-  T& pop() override;
+  T pop() override;
   // Return the top element of the stack
   T& top() override;
   virtual bool IsFull() const override;
@@ -51,7 +51,7 @@ void FixedStack<T>::push(T elem) {
 }
 
 template <typename T>
-T& FixedStack<T>::pop() {
+T FixedStack<T>::pop() {
   if (IsEmpty()) {
     throw std::length_error("The Stack is empty!");
   }

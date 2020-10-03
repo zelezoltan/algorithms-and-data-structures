@@ -8,7 +8,7 @@ class IStack {
  public:
   virtual ~IStack() {}
   virtual void push(T elem) = 0;
-  virtual T& pop() = 0;
+  virtual T pop() = 0;
   virtual T& top() = 0;
   virtual bool IsEmpty() const = 0;
   virtual bool IsFull() const = 0;
