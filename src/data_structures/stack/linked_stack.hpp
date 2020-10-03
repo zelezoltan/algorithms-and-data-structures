@@ -11,7 +11,7 @@ namespace data_structures {
 template <typename T>
 class LinkedStack : public IStack<T> {
  public:
-  using size_type = unsigned long long;
+  using size_type = typename SinglyLinkedList<T>::size_type;
 
   void push(T elem) override;
   T pop() override;
@@ -35,7 +35,6 @@ T LinkedStack<T>::pop() {
   if (!IsEmpty()) {
     return list_.pop_front();
   }
-  return T();
 }
 
 template <typename T>

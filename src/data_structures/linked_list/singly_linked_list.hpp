@@ -109,8 +109,6 @@ T SinglyLinkedList<T>::pop_front() {
     --size_;
     return data;
   }
-  // undefined
-  return T();
 }
 
 template <typename T>
