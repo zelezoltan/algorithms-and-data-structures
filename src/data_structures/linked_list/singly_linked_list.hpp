@@ -19,8 +19,8 @@ class SinglyLinkedList {
   void insert(const T& data, size_type position);
   void push_back(const T& data);
   T pop_front();
-  T& front() { return !IsEmpty() ? head_->value : T(); }
-  T& back() { return !IsEmpty() ? tail_->value : T(); }
+  T& front() { return head_->value; }
+  T& back() { return tail_->value; }
   // T pop_back();
   size_type size() const { return size_; }
   bool IsFull() const;
