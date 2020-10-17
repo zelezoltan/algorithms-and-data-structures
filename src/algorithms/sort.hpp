@@ -35,6 +35,49 @@ int GetRandomNumber(int low, int high) {
   return low + (std::rand() % (high-low + 1));
 }
 
+template <typename T>
+typename std::vector<T>::size_type left(typename std::vector<T>::size_type k) {
+  return 2*k + 1;
+}
+
+template <typename T>
+typename std::vector<T>::size_type parent(typename std::vector<T>::size_type k) {
+  return (k - 1) / 2;
+}
+
+template <typename T>
+void sink(std::vector<T>& vec, typename std::vector<T>::size_type k,
+   typename std::vector<T>::size_type n) {
+  typename std::vector<T>::size_type i = k;
+  typename std::vector<T>::size_type j = left<T>(k);
+  bool b = true;
+  while (j < n && b) {
+    // arr_[j] is the left child of arr_[i]
+    // arr_[j + 1] is the right child of arr_[i]
+    if (j < n - 1 && vec[j + 1] > vec[j]) {
+      ++j;
+    }
+    // arr_[j] is the greater child of arr_[i]
+    if (vec[i] < vec[j]) {
+      swap(vec[i], vec[j]);
+      i = j;
+      j = left<T>(j);
+    } else {
+      b = false;
+    }
+  }
+}
+
+// Builds a max heap from a vector in place
+template <typename T>
+void BuildMaxHeap(std::vector<T>& vec) {
+  typename std::vector<T>::size_type size = vec.size();
+  for (typename std::vector<T>::size_type k = parent<T>(size - 1); k > 0; --k) {
+    sink(vec, k, size);
+  }
+  sink(vec, 0, size);
+}
+
 } // namespace sort_helpers
 
 enum class MergeSortImplementation {
@@ -314,6 +357,15 @@ void QuickSort(std::vector<T>& vec) {
     case QuickSortImplementation::kTailCallOptimized:
       QuickSortTailCallOptimized(vec, 0, vec.size() - 1);
       break;
+  }
+}
+
+template <typename T>
+void HeapSort(std::vector<T>& vec) {
+  sort_helpers::BuildMaxHeap(vec);
+  for (typename std::vector<T>::size_type i = vec.size() - 1; i > 0; --i) {
+    sort_helpers::swap(vec[0], vec[i]);
+    sort_helpers::sink(vec, 0, i);
   }
 }
 

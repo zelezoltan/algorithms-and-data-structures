@@ -77,10 +77,10 @@ void PriorityQueue<T>::sink(size_type k, size_type n) {
   size_type i = k;
   size_type j = left(k);
   bool b = true;
-  while (j < length_ && b) {
+  while (j < n && b) {
     // arr_[j] is the left child of arr_[i]
     // arr_[j + 1] is the right child of arr_[i]
-    if (j < length_ - 1 && arr_[j + 1] > arr_[j]) {
+    if (j < n - 1 && arr_[j + 1] > arr_[j]) {
       ++j;
     }
     // arr_[j] is the greater child of arr_[i]

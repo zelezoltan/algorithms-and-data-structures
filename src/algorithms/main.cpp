@@ -48,5 +48,9 @@ int main() {
   algorithms::QuickSort(values);
   PrintVector(values);
 
+  values = {4, 6, 2, 8, 3, 5, 2, 10, 11, 4, 6, 2, 8, 3, 5, 2, 10, 11};
+  algorithms::HeapSort(values);
+  PrintVector(values);
+
   return 0;
 }
