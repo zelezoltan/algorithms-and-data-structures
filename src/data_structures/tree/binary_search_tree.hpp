@@ -8,7 +8,7 @@ namespace data_structures {
 template <typename T>
 class BinarySearchTree {
  public:
-  using Node = BinaryTreeNode<T>
+  using Node = BinaryTreeNode<T>;
 
   BinarySearchTree() {}
   ~BinarySearchTree();
@@ -24,12 +24,27 @@ class BinarySearchTree {
   Node* RemoveMinHelper(Node*& node);
   void DelHelper(Node*& node, T data);
   void DelRoot(Node*& node);
+  void DeleteNodesHelper(Node*& node);
+  void DeleteNodes() { DeleteNodesHelper(root); }
 
   Node* root = nullptr;
 };
 
 template <typename T>
-BinarySearchTree<T>::Node* BinarySearchTree<T>::SearchHelperRecursive(
+BinarySearchTree<T>::~BinarySearchTree() {
+  DeleteNodes();
+}
+
+template <typename T>
+void BinarySearchTree<T>::DeleteNodesHelper(Node*& node) {
+  if (node == nullptr) return;
+  DeleteNodesHelper(node->left);
+  DeleteNodesHelper(node->right);
+  delete node;
+}
+
+template <typename T>
+typename BinarySearchTree<T>::Node* BinarySearchTree<T>::SearchHelperRecursive(
     Node* node, T data) {
   if (node == nullptr) return nullptr;
   if (node->data == data) return node;
@@ -38,7 +53,7 @@ BinarySearchTree<T>::Node* BinarySearchTree<T>::SearchHelperRecursive(
 }
 
 template <typename T>
-BinarySearchTree<T>::Node* BinarySearchTree<T>::SearchHelper(
+typename BinarySearchTree<T>::Node* BinarySearchTree<T>::SearchHelper(
     Node* node, T data) {
   while (node != nullptr && node->data != data) {
     if (node->data > data) node = node->left;
@@ -59,7 +74,7 @@ void BinarySearchTree<T>::InsertHelper(Node*& node, T data) {
 }
 
 template <typename T>
-BinarySearchTree<T>::Node* BinarySearchTree<T>::min() {
+typename BinarySearchTree<T>::Node* BinarySearchTree<T>::min() {
   Node* node = root;
   while (node != nullptr && node->left != nullptr) {
     node = node->left;
@@ -68,7 +83,8 @@ BinarySearchTree<T>::Node* BinarySearchTree<T>::min() {
 }
 
 template <typename T>
-BinarySearchTree<T>::Node* BinarySearchTree<T>::RemoveMinHelper(Node*& node) {
+typename BinarySearchTree<T>::Node* BinarySearchTree<T>::RemoveMinHelper(
+    Node*& node) {
   if (node->left == nullptr) {
     Node* min = node;
     node = node->right;
