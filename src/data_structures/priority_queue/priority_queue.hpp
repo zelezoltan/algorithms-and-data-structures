@@ -19,7 +19,7 @@ class PriorityQueue {
  private:
   size_type left(size_type node_index) const { return 2*node_index + 1; }
   size_type right(size_type node_index) const { return 2*node_index + 2; }
-  size_type parent(size_type node_index) const { return (node_index - 1) / 2}
+  size_type parent(size_type node_index) const { return (node_index - 1) / 2; }
   void swap(T& a, T& b);
   void sink(size_type k, size_type n);
 
@@ -76,7 +76,7 @@ template <typename T>
 void PriorityQueue<T>::sink(size_type k, size_type n) {
   size_type i = k;
   size_type j = left(k);
-  bool b = false;
+  bool b = true;
   while (j < length_ && b) {
     // arr_[j] is the left child of arr_[i]
     // arr_[j + 1] is the right child of arr_[i]
